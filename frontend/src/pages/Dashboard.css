@@ -1,0 +1,171 @@
+.dashboard {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.create-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #4f46e5;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.create-btn:hover {
+  background: #4338ca;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  color: #4f46e5;
+  margin-bottom: 0.3rem;
+}
+
+.stat-card p {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.posts-table-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.posts-table-container h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.posts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.posts-table th,
+.posts-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.posts-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #555;
+}
+
+.post-title-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.post-title-link:hover {
+  color: #4f46e5;
+}
+
+.category-tag {
+  background: #ede9fe;
+  color: #4f46e5;
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.status-badge {
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.status-badge.published {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.draft {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-edit {
+  color: #4f46e5;
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.action-edit:hover {
+  background: #ede9fe;
+}
+
+.action-delete {
+  color: #ef4444;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.action-delete:hover {
+  background: #fee2e2;
+}
+
+@media (max-width: 768px) {
+  .posts-table {
+    font-size: 0.85rem;
+  }
+
+  .posts-table th:nth-child(5),
+  .posts-table td:nth-child(5),
+  .posts-table th:nth-child(6),
+  .posts-table td:nth-child(6) {
+    display: none;
+  }
+}
