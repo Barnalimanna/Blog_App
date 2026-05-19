@@ -25,31 +25,33 @@ const getComments = async (req, res) => {
   }
 };
 
+
+
 // const createComment = async (req, res) => {
 //   try {
 //     const { content, parentComment } = req.body;
 
-//     //send comment to fastapi
-
+//     // Send comment to FastAPI
 //     const mlResponse = await axios.post(
 //       'http://127.0.0.1:8000/predict',
 //       {
-//         text:content,
+//         comment: content,
 //       }
 //     );
 
 //     console.log("ML RESPONSE:", mlResponse.data);
 
-//     //block bully comment
+//     // Get prediction
+//     const prediction = mlResponse.data.prediction;
 
-//     if(prediction == 'bully'){
+//     // Block bully comment
+//     if (prediction === 1) {
 //       return res.status(400).json({
-//         message: 'Cyberbullting comment detected',
+//         message: 'Cyberbullying comment detected',
 //       });
 //     }
 
-//     //save safe comment
-
+//     // Save safe comment
 //     const comment = await Comment.create({
 //       content,
 //       post: req.params.postId,
@@ -57,39 +59,50 @@ const getComments = async (req, res) => {
 //       parentComment: parentComment || null,
 //     });
 
-//     const populatedComment = await comment.populate('user', 'username avatar');
+//     const populatedComment = await comment.populate(
+//       'user',
+//       'username avatar'
+//     );
+
 //     res.status(201).json(populatedComment);
+
 //   } catch (error) {
-//     res.status(500).json({ message: error.message });
+//     console.log(error);
+
+//     res.status(500).json({
+//       message: error.message,
+//     });
 //   }
 // };
-
 
 const createComment = async (req, res) => {
   try {
     const { content, parentComment } = req.body;
 
-    // Send comment to FastAPI
-    const mlResponse = await axios.post(
-      'http://127.0.0.1:8000/predict',
-      {
-        comment: content,
+    let prediction = 0;
+
+    // ML API check - optional
+    try {
+      if (process.env.ML_API_URL) {
+        const mlResponse = await axios.post(process.env.ML_API_URL, {
+          comment: content,
+        });
+
+        console.log("ML RESPONSE:", mlResponse.data);
+        prediction = mlResponse.data.prediction;
+      } else {
+        console.log("ML_API_URL not set, skipping ML check");
       }
-    );
+    } catch (mlError) {
+      console.log("ML API failed, saving comment anyway");
+    }
 
-    console.log("ML RESPONSE:", mlResponse.data);
-
-    // Get prediction
-    const prediction = mlResponse.data.prediction;
-
-    // Block bully comment
     if (prediction === 1) {
       return res.status(400).json({
-        message: 'Cyberbullying comment detected',
+        message: "Cyberbullying comment detected",
       });
     }
 
-    // Save safe comment
     const comment = await Comment.create({
       content,
       post: req.params.postId,
@@ -97,19 +110,12 @@ const createComment = async (req, res) => {
       parentComment: parentComment || null,
     });
 
-    const populatedComment = await comment.populate(
-      'user',
-      'username avatar'
-    );
+    const populatedComment = await comment.populate("user", "username avatar");
 
     res.status(201).json(populatedComment);
-
   } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      message: error.message,
-    });
+    console.log("Comment error:", error);
+    res.status(500).json({ message: error.message });
   }
 };
 
