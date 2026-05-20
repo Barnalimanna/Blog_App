@@ -6,35 +6,35 @@ import './Auth.css';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
-//  const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   try {
-//     const response = await forgotPassword(email);
-
-//     toast.success('Reset link generated');
-
-//     alert(`Reset Link:\n${response.data.resetUrl}`);
-//   } catch (error) {
-//     toast.error(
-//       error.response?.data?.message || 'Something went wrong'
-//     );
-//   }
-// };
-
-const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    await forgotPassword(email);
+    const response = await forgotPassword(email);
 
-    toast.success('Password reset link generated. Check backend response/log.');
+    toast.success('Reset link generated');
+
+    alert(`Reset Link:\n${response.data.resetUrl}`);
   } catch (error) {
     toast.error(
       error.response?.data?.message || 'Something went wrong'
     );
   }
 };
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   try {
+//     await forgotPassword(email);
+
+//     toast.success('Password reset link generated. Check backend response/log.');
+//   } catch (error) {
+//     toast.error(
+//       error.response?.data?.message || 'Something went wrong'
+//     );
+//   }
+// };
 
   return (
   <div className="auth-page">
