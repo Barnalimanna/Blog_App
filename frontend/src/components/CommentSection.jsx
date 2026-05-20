@@ -43,7 +43,7 @@ const CommentSection = ({ postId }) => {
       const msg = error.response?.data?.mesage || 'Inappropriate comment is prohabitade';
 
       setCommentError(msg);
-      toast.error(msg);
+      // toast.error(msg);
     }
     setLoading(false);
   };
