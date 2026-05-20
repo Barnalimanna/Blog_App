@@ -11,9 +11,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await forgotPassword(email);
-
-      toast.success(response.data.message);
-
+      toast.success(response.data.message || 'Reset link generated');
       console.log(response.data);
     } catch (error) {
       toast.error(
@@ -26,16 +24,22 @@ const ForgotPassword = () => {
     <div className="auth-page">
       <div className="auth-card">
         <h2>Forgot Password</h2>
+        <p>Enter your email to reset password</p>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-            placeholder="Email"
-          />
+          <div className="form-group">
+            <label>Email</label>
 
-          <button type="submit">
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="auth-btn">
             Send Reset Link
           </button>
         </form>
