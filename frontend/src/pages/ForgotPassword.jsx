@@ -6,66 +6,42 @@ import './Auth.css';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
- const handleSubmit = async (e) => {
-    console.log("NEW FORGOT PASSWORD CODE RUNNING");
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await forgotPassword(email);
+    try {
+      const response = await forgotPassword(email);
 
-    toast.success('Reset link generated');
+      toast.success(response.data.message);
 
-    alert(`Reset Link:\n${response.data.resetUrl}`);
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || 'Something went wrong'
-    );
-  }
-};
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   try {
-//     await forgotPassword(email);
-
-//     toast.success('Password reset link generated. Check backend response/log.');
-//   } catch (error) {
-//     toast.error(
-//       error.response?.data?.message || 'Something went wrong'
-//     );
-//   }
-// };
+      console.log(response.data);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || 'Something went wrong'
+      );
+    }
+  };
 
   return (
-  <div className="auth-page">
-    <div className="auth-card">
-      <h2>Forgot Password</h2>
-      <p>Enter your email to reset password</p>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Forgot Password</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email</label>
-
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="Enter email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={(e)=>setEmail(e.target.value)}
+            placeholder="Email"
           />
-        </div>
 
-        <button
-          type="submit"
-          className="auth-btn"
-        >
-          Send Reset Link
-        </button>
-      </form>
+          <button type="submit">
+            Send Reset Link
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default ForgotPassword;
