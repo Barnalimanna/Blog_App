@@ -8,6 +8,7 @@ import './CommentSection.css';
 const CommentSection = ({ postId }) => {
   const { user } = useAuth();
   const [comments, setComments] = useState([]);
+  const [commentError, setCommentError] = useState('');
   const [content, setContent] = useState('');
   const [replyTo, setReplyTo] = useState(null);
   const [replyContent, setReplyContent] = useState('');
@@ -29,7 +30,9 @@ const CommentSection = ({ postId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim()) return;
+
     setLoading(true);
+    setCommentError('');
 
     try {
       await createComment(postId, { content });
@@ -37,7 +40,10 @@ const CommentSection = ({ postId }) => {
       fetchComments();
       toast.success('Comment added!');
     } catch (error) {
-      toast.error('Failed to add comment');
+      const msg = error.response?.data?.mesage || 'Inappropriate comment is prohabitade';
+
+      setCommentError(msg);
+      toast.error(msg);
     }
     setLoading(false);
   };
@@ -74,7 +80,8 @@ const CommentSection = ({ postId }) => {
       <h3>Comments ({comments.length})</h3>
 
       {user ? (
-        <form onSubmit={handleSubmit} className="comment-form">
+        <>
+         <form onSubmit={handleSubmit} className="comment-form">
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -86,6 +93,12 @@ const CommentSection = ({ postId }) => {
             {loading ? 'Posting...' : 'Post Comment'}
           </button>
         </form>
+           {commentError &&(
+          <div className="comment-error">
+            {commentError}
+          </div>
+          )}
+        </>
       ) : (
         <p className="login-prompt">Please login to comment</p>
       )}

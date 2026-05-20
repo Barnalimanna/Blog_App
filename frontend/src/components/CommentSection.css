@@ -4,6 +4,16 @@
   border-top: 2px solid #eee;
 }
 
+.comment-error {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #ffe6e6;
+  color: #b00020;
+  border: 1px solid #ffb3b3;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
 .comment-form textarea,
 .reply-form textarea {
   width: 100%;
