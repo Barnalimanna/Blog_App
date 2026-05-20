@@ -6,23 +6,21 @@ import './Auth.css';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const { data } = await forgotPassword(email);
+  try {
+    const response = await forgotPassword(email);
 
-      toast.success('Reset link generated');
+    toast.success('Reset link generated');
 
-      console.log(data.resetUrl); // temporary
-
-      alert(`Reset Link:\n${data.resetUrl}`);
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Something went wrong'
-      );
-    }
-  };
+    alert(`Reset Link:\n${response.data.resetUrl}`);
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || 'Something went wrong'
+    );
+  }
+};
 
   return (
   <div className="auth-page">
