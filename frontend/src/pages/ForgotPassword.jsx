@@ -7,6 +7,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
  const handleSubmit = async (e) => {
+    console.log("NEW FORGOT PASSWORD CODE RUNNING");
   e.preventDefault();
 
   try {
