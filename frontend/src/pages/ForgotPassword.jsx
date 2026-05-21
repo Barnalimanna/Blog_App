@@ -13,20 +13,12 @@ const ForgotPassword = () => {
       const response = await forgotPassword(email);
       toast.success(response.data.message || 'Reset link generated');
       console.log(response.data);
-    // } catch (error) {
-    //   toast.error(
-    //     error.response?.data?.message || 'Something went wrong'
-    //   );
-    // }
-    }catch (error) {
-  console.error("FORGOT PASSWORD ERROR:");
-  console.error(error);
-
-  return res.status(500).json({
-    message: error.message,
-    stack: error.stack,
-  });
-}
+    } catch (error) {
+      console.error('FORGOT PASSWORD ERROR:', error);
+      toast.error(
+        error.response?.data?.message || 'Something went wrong'
+      );
+    }
   };
 
   return (
