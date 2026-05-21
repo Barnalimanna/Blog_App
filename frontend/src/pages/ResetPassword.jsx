@@ -27,12 +27,37 @@ const ResetPassword = () => {
     }
   };
 
-  return (
-    <div className="auth-page">
-      <form onSubmit={handleSubmit}>
-        <h2>Reset Password</h2>
+  // return (
+  //   <div className="auth-page">
+  //     <form onSubmit={handleSubmit}>
+  //       <h2>Reset Password</h2>
 
-        <input
+  //       <input
+  //         type="password"
+  //         placeholder="New password"
+  //         value={password}
+  //         onChange={(e) =>
+  //           setPassword(e.target.value)
+  //         }
+  //         required
+  //       />
+
+  //       <button type="submit">
+  //         Reset Password
+  //       </button>
+  //     </form>
+  //   </div>
+  // );
+  return (
+  <div className="auth-page">
+    <div className="auth-card">
+      <h2>Reset Password</h2>
+      <p>Enter your new password</p>
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>New Password</label>
+          <input
           type="password"
           placeholder="New password"
           value={password}
@@ -41,13 +66,15 @@ const ResetPassword = () => {
           }
           required
         />
+        </div>
 
-        <button type="submit">
-          Reset Password
+        <button type="submit" className="auth-btn" disabled={loading}>
+          {loading ? 'Resetting...' : 'Reset Password'}
         </button>
       </form>
     </div>
-  );
+  </div>
+);
 };
 
 export default ResetPassword;
