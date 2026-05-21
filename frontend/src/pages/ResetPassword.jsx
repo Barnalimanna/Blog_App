@@ -6,6 +6,7 @@ import './Auth.css';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { token } = useParams();
   const navigate = useNavigate();
@@ -13,68 +14,65 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     try {
       await resetPassword(token, password);
 
       toast.success('Password reset successful');
 
       navigate('/login');
+
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
         'Reset failed'
       );
+    } finally {
+      setLoading(false);
     }
   };
 
-  // return (
-  //   <div className="auth-page">
-  //     <form onSubmit={handleSubmit}>
-  //       <h2>Reset Password</h2>
-
-  //       <input
-  //         type="password"
-  //         placeholder="New password"
-  //         value={password}
-  //         onChange={(e) =>
-  //           setPassword(e.target.value)
-  //         }
-  //         required
-  //       />
-
-  //       <button type="submit">
-  //         Reset Password
-  //       </button>
-  //     </form>
-  //   </div>
-  // );
   return (
-  <div className="auth-page">
-    <div className="auth-card">
-      <h2>Reset Password</h2>
-      <p>Enter your new password</p>
+    <div className="auth-page">
+      <div className="auth-card">
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>New Password</label>
-          <input
-          type="password"
-          placeholder="New password"
-          value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
-          required
-        />
-        </div>
+        <h2>Reset Password</h2>
+        <p>Enter your new password</p>
 
-        <button type="submit" className="auth-btn" disabled={loading}>
-          {loading ? 'Resetting...' : 'Reset Password'}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit}>
+
+          <div className="form-group">
+
+            <label>New Password</label>
+
+            <input
+              type="password"
+              placeholder="New password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
+            />
+
+          </div>
+
+          <button
+            type="submit"
+            className="auth-btn"
+            disabled={loading}
+          >
+            {loading
+              ? 'Resetting...'
+              : 'Reset Password'}
+          </button>
+
+        </form>
+
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default ResetPassword;
