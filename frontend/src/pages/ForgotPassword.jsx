@@ -5,14 +5,15 @@ import './Auth.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await forgotPassword(email);
       toast.success(response.data.message || 'Reset link generated');
-      console.log(response.data);
     } catch (error) {
       console.error('FORGOT PASSWORD ERROR:', error);
       toast.error(
@@ -40,8 +41,8 @@ const ForgotPassword = () => {
             />
           </div>
 
-          <button type="submit" className="auth-btn">
-            Send Reset Link
+          <button type="submit" className="auth-btn" disabled={loading}>
+             {loading ? 'Sending...' : 'Send Reset Link'}
           </button>
         </form>
       </div>
