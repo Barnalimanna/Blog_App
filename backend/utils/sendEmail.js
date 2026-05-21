@@ -17,4 +17,4 @@ const sendEmail = async({ email, subject, message }) => {
     });
 };
 
-module.export = sendEmail;
+module.exports = sendEmail;
