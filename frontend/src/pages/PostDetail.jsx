@@ -16,6 +16,7 @@ import {
 import DOMPurify from 'dompurify';
 import { getFeaturedImageUrl } from '../utils/getFeaturedImageUrl';
 import './PostDetail.css';
+import { Helmet } from 'react-helmet-async';
 
 const PostDetail = () => {
   const { slug } = useParams();
@@ -87,15 +88,29 @@ const PostDetail = () => {
   if (!post) return <div className="loading">Post not found</div>;
 
   return (
-    <div className="post-detail">
-      <div className="post-detail-hero">
-        <img
-          src={getFeaturedImageUrl(
+    <>
+      <Helmet>
+        <title>{post.title} | PostNest</title>
+
+        <meta
+             name="description"
+             content={post.excerpt || post.content?.slice(0,150)}
+        />
+
+        <meta
+             name="keywords"
+             content={post.tags?.json(', ')}
+        />
+      </Helmet>
+      <div className="post-detail">
+        <div className="post-detail-hero">
+          <img
+            src={getFeaturedImageUrl(
             post.featuredImage,
             'https://via.placeholder.com/1200x500'
           )}
           alt={post.title}
-        />
+          />
         <div className="post-detail-hero-overlay">
           <span className="category-badge">{post.category}</span>
           <h1>{post.title}</h1>
@@ -168,8 +183,9 @@ const PostDetail = () => {
         />
 
         <CommentSection postId={post._id} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
