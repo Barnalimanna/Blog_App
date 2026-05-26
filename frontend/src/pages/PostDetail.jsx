@@ -34,6 +34,12 @@ const PostDetail = () => {
   }, [slug]);
 
   useEffect(() => {
+  if (post?.title) {
+    document.title = `${post.title} | PostNest`;
+  }
+}, [post]);
+
+  useEffect(() => {
     if (articleRef.current) {
       const links = articleRef.current.querySelectorAll('a');
       links.forEach((link) => {
