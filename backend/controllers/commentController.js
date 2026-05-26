@@ -25,56 +25,6 @@ const getComments = async (req, res) => {
   }
 };
 
-
-
-// const createComment = async (req, res) => {
-//   try {
-//     const { content, parentComment } = req.body;
-
-//     // Send comment to FastAPI
-//     const mlResponse = await axios.post(
-//       'http://127.0.0.1:8000/predict',
-//       {
-//         comment: content,
-//       }
-//     );
-
-//     console.log("ML RESPONSE:", mlResponse.data);
-
-//     // Get prediction
-//     const prediction = mlResponse.data.prediction;
-
-//     // Block bully comment
-//     if (prediction === 1) {
-//       return res.status(400).json({
-//         message: 'Cyberbullying comment detected',
-//       });
-//     }
-
-//     // Save safe comment
-//     const comment = await Comment.create({
-//       content,
-//       post: req.params.postId,
-//       user: req.user._id,
-//       parentComment: parentComment || null,
-//     });
-
-//     const populatedComment = await comment.populate(
-//       'user',
-//       'username avatar'
-//     );
-
-//     res.status(201).json(populatedComment);
-
-//   } catch (error) {
-//     console.log(error);
-
-//     res.status(500).json({
-//       message: error.message,
-//     });
-//   }
-// };
-
 const createComment = async (req, res) => {
   try {
     const { content, parentComment } = req.body;
