@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blog-app-gules-zeta.vercel.app/
+Sitemap: https://blog-app-gules-zeta.vercel.app/sitemap.xml
