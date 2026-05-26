@@ -99,7 +99,7 @@ const PostDetail = () => {
 
         <meta
              name="keywords"
-             content={post.tags?.json(', ')}
+             content={Array.isArray(post.tags) ? post.tags.join(', ') : ''}
         />
       </Helmet>
       <div className="post-detail">
